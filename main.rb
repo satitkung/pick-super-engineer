@@ -9,7 +9,8 @@ def random_pick
   puts name #print one name of engineerlist by random
   pick_featureA(name)
   pick_FeatureB(name)
-  pick_fetureC(eng_list)
+  pick_fetureC(ARGV)
+
 end
 
 
@@ -24,17 +25,24 @@ end
 
 def pick_FeatureB(name)
   sp_n = name.split(".") #split name == " "
-  sp_c = sp_n[1].split(//) #split character
   sp_c =  sp_n[1].split("") #split character
   sFB = sp_n[0] + " " + sp_c[0] + "..."
   puts sFB
-
 end
 
-def pick_fetureC(list_name)
-  search = gets.chomp()
-  puts "Search name '#{search}'"
-  puts list_name[list_name.index{|s| s.include?("#{search}")}]
+def pick_fetureC(name)
+  search = name.join
+  engineers = Array.new()
+  File.read("engineerlist.txt").each_line do|line| 
+    engineers.push(line) 
+  end
+  
+  for i in 0...engineers.size
+    if engineers[i].include?("#{search}")
+      puts engineers[i]
+      break
+    end
+  end
 end
 
 
